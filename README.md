@@ -114,3 +114,196 @@ class BiometricGate(private val activity: FragmentActivity) {
     <style name="Theme.PrivateGate"
         parent="Theme.Material3.DayNight.NoActionBar" />
 </resources>http://schemas.android.com/apk/res/android
+package com.example.privacy.biometric
+
+import android.content.Context
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+
+class BiometricGate(private val activity: FragmentActivity) {
+
+    fun isAvailable(): Int {
+        return BiometricManager.from(activity).canAuthenticate(
+            BiometricManager.Authenticators.BIOMETRIC_STRONG
+        )
+    }
+
+    fun authenticate(
+        title: String = "Unlock PrivateGate",
+        subtitle: String = "Use your enrolled biometric",
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val status = isAvailable()
+        if (status != BiometricManager.BIOMETRIC_SUCCESS) {
+            onFailure("Strong biometric authentication is unavailable")
+            return
+        }
+
+        val executor = ContextCompat.getMainExecutor(activity)
+        val prompt = BiometricPrompt(
+            activity,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    onSuccess()
+                }
+
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    onFailure(errString.toString())
+                }
+
+                override fun onAuthenticationFailed() {
+                    onFailure("Biometric not recognized")
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setSubtitle(subtitle)
+            .setAllowedAuthenticators(
+                BiometricManager.Authenticators.BIOMETRIC_STRONG
+            )
+            .setNegativeButtonText("Cancel")
+            .setConfirmationRequired(true)
+            .build()
+
+        prompt.authenticate(promptInfo)
+    }
+}package com.example.privacy.biometric
+
+import android.content.Context
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+
+class BiometricGate(private val activity: FragmentActivity) {
+
+    fun isAvailable(): Int {
+        return BiometricManager.from(activity).canAuthenticate(
+            BiometricManager.Authenticators.BIOMETRIC_STRONG
+        )
+    }
+
+    fun authenticate(
+        title: String = "Unlock PrivateGate",
+        subtitle: String = "Use your enrolled biometric",
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val status = isAvailable()
+        if (status != BiometricManager.BIOMETRIC_SUCCESS) {
+            onFailure("Strong biometric authentication is unavailable")
+            return
+        }
+
+        val executor = ContextCompat.getMainExecutor(activity)
+        val prompt = BiometricPrompt(
+            activity,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    onSuccess()
+                }
+
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    onFailure(errString.toString())
+                }
+
+                override fun onAuthenticationFailed() {
+                    onFailure("Biometric not recognized")
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setSubtitle(subtitle)
+            .setAllowedAuthenticators(
+                BiometricManager.Authenticators.BIOMETRIC_STRONG
+            )
+            .setNegativeButtonText("Cancel")
+            .setConfirmationRequired(true)
+            .build()
+
+        prompt.authenticate(promptInfo)
+    }
+}
+package com.example.privacy.biometric
+
+import android.content.Context
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+
+class BiometricGate(private val activity: FragmentActivity) {
+
+    fun isAvailable(): Int {
+        return BiometricManager.from(activity).canAuthenticate(
+            BiometricManager.Authenticators.BIOMETRIC_STRONG
+        )
+    }
+
+    fun authenticate(
+        title: String = "Unlock PrivateGate",
+        subtitle: String = "Use your enrolled biometric",
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val status = isAvailable()
+        if (status != BiometricManager.BIOMETRIC_SUCCESS) {
+            onFailure("Strong biometric authentication is unavailable")
+            return
+        }
+
+        val executor = ContextCompat.getMainExecutor(activity)
+        val prompt = BiometricPrompt(
+            activity,
+            executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    onSuccess()
+                }
+
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    onFailure(errString.toString())
+                }
+
+                override fun onAuthenticationFailed() {
+                    onFailure("Biometric not recognized")
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setSubtitle(subtitle)
+            .setAllowedAuthenticators(
+                BiometricManager.Authenticators.BIOMETRIC_STRONG
+            )
+            .setNegativeButtonText("Cancel")
+            .setConfirmationRequired(true)
+            .build()
+
+        prompt.authenticate(promptInfo)
+    }
